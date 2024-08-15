@@ -25,8 +25,8 @@ public class UserDetailServiceTest {
     void setUp(){
         MockitoAnnotations.initMocks(this);
     }
-    @Test
     @Disabled
+    @Test
     void loadUserByUserNameTest(){
 //        when(userRepository.findByUserName(ArgumentMatchers.anyString())).thenReturn(User.builder().username("sam").password("asasasasass").build());
         UserDetails user = userDetailsServices.loadUserByUsername("ram");

@@ -6,6 +6,7 @@ import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import tawra.technologies.Journals.Enums.Sentiments;
 
 import java.time.LocalDateTime;
 
@@ -19,4 +20,5 @@ public class JournalEntery {
     private String title;
     private String content;
     private LocalDateTime date;
+    private Sentiments sentiments;
 }

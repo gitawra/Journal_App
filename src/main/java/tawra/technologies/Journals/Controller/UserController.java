@@ -6,9 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import tawra.technologies.Journals.ApiResponce.WeatherResponse;
 import tawra.technologies.Journals.Entity.User;
 import tawra.technologies.Journals.Repository.UserRepository;
 import tawra.technologies.Journals.Services.UserServices;
+import tawra.technologies.Journals.Services.WeatherService;
 
 import java.util.List;
 
@@ -21,11 +23,8 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
-    @GetMapping
-    public List<User> getAllUser(){
-        return userServices.getAll();
-    }
+    @Autowired
+    WeatherService weatherService;
 
 
     @PutMapping
@@ -46,6 +45,17 @@ public class UserController {
         String username = authentication.getName();
         userRepository.deleteByUserName(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> greeting(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse weatherRes = weatherService.getWeather("Delhi");
+        String greeting = "";
+        if(weatherRes != null){
+            greeting = ", Weather feels like "+ weatherRes.getCurrent().getFeelslike();
+        }
+        return new ResponseEntity<>("Hi "+ authentication.getName() + greeting, HttpStatus.OK);
     }
 
 }

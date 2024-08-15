@@ -31,6 +31,7 @@ public class UserServiceTests {
             "5,4,3"
     })
     @Disabled
+    @Test
     public void test(int a, int b, int expected){
         assertEquals(expected,a+b);
     }

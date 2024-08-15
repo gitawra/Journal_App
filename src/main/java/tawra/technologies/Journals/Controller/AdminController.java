@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tawra.technologies.Journals.Cache.AppCache;
 import tawra.technologies.Journals.Entity.User;
 import tawra.technologies.Journals.Services.UserServices;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private UserServices userServices;
+    @Autowired
+    private AppCache appCache;
 
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers(){
@@ -27,5 +30,10 @@ public class AdminController {
     @PostMapping("create-admin-user")
     public void createAdminUser(@RequestBody User user){
         userServices.saveAdmin(user);
+    }
+
+    @GetMapping("clear-app-cache")
+    public void clearAppCache(){
+        appCache.init();
     }
 }
